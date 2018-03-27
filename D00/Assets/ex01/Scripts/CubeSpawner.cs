@@ -59,7 +59,6 @@ public class CubeSpawner : MonoBehaviour {
 
 	void score () {
 		float posCube = spawned.transform.position.y;
-		float posStart = 4.0f;
 		float posEnd = 8.0f;
 
 		posCube = posCube >= 0 ? 4 - posCube : 4 + posCube * (-1);

@@ -54,6 +54,8 @@
      <Compile Include="Assets\ex00\Scripts\Balloon.cs" />
      <Compile Include="Assets\ex01\Scripts\Cube.cs" />
      <Compile Include="Assets\ex01\Scripts\CubeSpawner.cs" />
+     <Compile Include="Assets\ex02\Scripts\Ball.cs" />
+     <Compile Include="Assets\ex02\Scripts\Club.cs" />
  <Reference Include="UnityEngine.UIAutomation">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll</HintPath>
  </Reference>
