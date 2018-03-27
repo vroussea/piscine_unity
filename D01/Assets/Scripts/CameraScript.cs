@@ -12,7 +12,10 @@ public class CameraScript : MonoBehaviour {
 	void Start () {
 		players = GameObject.FindGameObjectsWithTag("Character");
 		Array.Sort(players, CompareObNames);
-		players[currentPlayer].GetComponent<playerScript_ex00>().setMain(true);
+		if (SceneManager.GetActiveScene().name == "ex00")
+			players[currentPlayer].GetComponent<playerScript_ex00>().setMain(true);
+		if (SceneManager.GetActiveScene().name == "ex01")
+			players[currentPlayer].GetComponent<playerScript_ex01>().setMain(true);
 	}
 	
 	void Update () {
@@ -20,6 +23,7 @@ public class CameraScript : MonoBehaviour {
 
 		if (Input.GetKey("r")) {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			players = GameObject.FindGameObjectsWithTag("Character");
 		}
 		
 		Vector3 newCameraPos = players[currentPlayer].transform.position;
@@ -45,8 +49,15 @@ public class CameraScript : MonoBehaviour {
 	}
 
 	void setPlayer(int player) {
-		players[currentPlayer].GetComponent<playerScript_ex00>().setMain(false);
-		currentPlayer = player;
-		players[currentPlayer].GetComponent<playerScript_ex00>().setMain(true);
+		if (SceneManager.GetActiveScene().name == "ex00") {
+			players[currentPlayer].GetComponent<playerScript_ex00>().setMain(false);
+			currentPlayer = player;
+			players[currentPlayer].GetComponent<playerScript_ex00>().setMain(true);
+		}
+		if (SceneManager.GetActiveScene().name == "ex01") {
+			players[currentPlayer].GetComponent<playerScript_ex01>().setMain(false);
+			currentPlayer = player;
+			players[currentPlayer].GetComponent<playerScript_ex01>().setMain(true);
+		}
 	}
 }
