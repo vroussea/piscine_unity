@@ -5,10 +5,13 @@ using UnityEngine;
 public class Ball : MonoBehaviour {
 	public GameObject	hole;
 	public GameObject	ball;
+	public GameObject	club;
+	public GameObject	clubPlace;
 	public float		speed;
 	public float		strength;
 	public bool			changeDir;
 	public int			score;
+	public Vector3		oldpos;
 
 	void Start () {
 		speed = 0;
@@ -18,8 +21,16 @@ public class Ball : MonoBehaviour {
 	}
 	
 	void Update () {
+		if (speed + strength == 0) {
+			moveClubPlace();
+		}
+
 		if (Input.GetKey("space")) {
-			if (speed <= 0) {
+			if (strength == 0) {
+				oldpos = clubPlace.transform.position;			
+			}
+			moveClubPlaceBack();
+			if (speed == 0) {
 				checkDir();
 			}
 			strength += 1.5f;
@@ -29,19 +40,40 @@ public class Ball : MonoBehaviour {
 			if (strength > 0) {
 				score += 5;
 				Debug.Log("Score: " + score);
+				if (score == 5)
+					Debug.Log("You lost");
+				clubPlace.transform.position = oldpos;
 			}
-			speed += (strength > 100 ? 100 : strength);
+			speed += Mathf.Clamp(strength, 0, 100);
 			strength = 0;
 		}
 
 		checkWin();
 
-		hitWall();		
+		hitWall();
+
+		
 		
 		if (speed > 0) {
 			moveBall();
 		}
-		speed = speed - 1 > 0 ? speed - 1 : 0;
+		speed = Mathf.Clamp(speed - 1, 0, 100);
+	}
+
+	void moveClubPlace() {
+		clubPlace.transform.position = ball.transform.position;
+	}
+
+	void moveClubPlaceBack() {
+		float	value;
+		if (changeDir == false) {
+			value = -0.01f;
+		}
+		else {
+			value = 0.01f;
+		}
+
+		clubPlace.transform.Translate(new Vector3(0, value, 0));
 	}
 
 	void moveBall() {
@@ -72,7 +104,7 @@ public class Ball : MonoBehaviour {
 	}
 
 	void checkWin() {
-		if (ball.transform.position.y <= 3.1f && ball.transform.position.y >= 2.9 && speed < 20)
+		if (ball.transform.position.y <= 3.1f && ball.transform.position.y >= 2.9 && speed < 14)
 			Destroy(ball);
 	}
 }
