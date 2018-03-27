@@ -1,32 +1,35 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraScript : MonoBehaviour {
 
 	public GameObject[] players;
-	private Vector3[]	startPos = new Vector3[3];
-	private int			currentPlayer;
+	public int			currentPlayer;
 
 	void Start () {
 		players = GameObject.FindGameObjectsWithTag("Character");
-		currentPlayer = 0;
+		Array.Sort(players, CompareObNames);
 		players[currentPlayer].GetComponent<playerScript_ex00>().setMain(true);
-		startPos[0] = players[0].transform.position;
-		startPos[1] = players[1].transform.position;
-		startPos[2] = players[2].transform.position;
 	}
 	
 	void Update () {
 		getPlayer();
 
 		if (Input.GetKey("r")) {
-			resetScene();
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 		
 		Vector3 newCameraPos = players[currentPlayer].transform.position;
 		newCameraPos.z = -10;
 		transform.position = newCameraPos;
+	}
+
+	int CompareObNames( GameObject x, GameObject y )
+	{
+	  return x.name.CompareTo( y.name );
 	}
 
 	void getPlayer() {
@@ -45,13 +48,5 @@ public class CameraScript : MonoBehaviour {
 		players[currentPlayer].GetComponent<playerScript_ex00>().setMain(false);
 		currentPlayer = player;
 		players[currentPlayer].GetComponent<playerScript_ex00>().setMain(true);
-	}
-
-	void resetScene() {
-		setPlayer(0);
-
-		players[0].transform.position = startPos[0];
-		players[1].transform.position = startPos[1];
-		players[2].transform.position = startPos[2];
 	}
 }

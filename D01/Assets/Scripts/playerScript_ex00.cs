@@ -44,6 +44,8 @@ public class playerScript_ex00 : MonoBehaviour {
     	else if (Input.GetKeyUp(KeyCode.LeftArrow)) {
     	    characterBody.velocity = new Vector2(0, characterBody.velocity.y);
     	}
+		if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
+			characterBody.velocity = new Vector2(0, characterBody.velocity.y);
 		if (Input.GetKeyDown("space") && (Math.Abs(characterBody.velocity.y) < 0.01f)) {
 			characterBody.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
 		}
