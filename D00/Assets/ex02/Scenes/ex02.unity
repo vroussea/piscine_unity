@@ -344,6 +344,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6688371d2451c4ebd8f74898bfe85c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hole: {fileID: 1008658282}
+  club: {fileID: 113821202}
+  clubPlace: {fileID: 1812850000}
 --- !u!1 &157831509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,6 +1543,7 @@ MonoBehaviour:
   strength: 0
   changeDir: 0
   score: 0
+  oldpos: {x: 0, y: 0, z: 0}
 --- !u!1 &1812850000
 GameObject:
   m_ObjectHideFlags: 0
