@@ -65,15 +65,7 @@ public class Ball : MonoBehaviour {
 	}
 
 	void moveClubPlaceBack() {
-		float	value;
-		if (changeDir == false) {
-			value = -0.01f;
-		}
-		else {
-			value = 0.01f;
-		}
-
-		clubPlace.transform.Translate(new Vector3(0, value, 0));
+		clubPlace.transform.Translate(new Vector3(0, -0.01f, 0));
 	}
 
 	void moveBall() {
