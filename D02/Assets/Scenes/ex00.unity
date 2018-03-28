@@ -330,7 +330,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: 8f88dbfbebfd4489d94a3160fe4f73d0, type: 3}
+  m_Sprite: {fileID: 21300018, guid: 8f88dbfbebfd4489d94a3160fe4f73d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -352,6 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPosition: {x: 0, y: 0, z: 0}
+  moveSpeed: 3
 --- !u!95 &1701095850
 Animator:
   serializedVersion: 3
@@ -407,6 +408,10 @@ Prefab:
     - target: {fileID: 497190, guid: 3fae31b33f1df4622a628af1e6d4d0a1, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 434168, guid: 3fae31b33f1df4622a628af1e6d4d0a1, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.09255454
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3fae31b33f1df4622a628af1e6d4d0a1, type: 2}
