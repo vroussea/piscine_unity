@@ -10,7 +10,12 @@ public class Footman : MonoBehaviour {
 
 	private Animator animatorComponent;
 
+	private SpriteRenderer renderer;
+
 	void Start () {
+        renderer = GetComponent<SpriteRenderer>();
+		
+		targetPosition = transform.position;
 		animatorComponent = GetComponent<Animator>();
 	}
 	
@@ -24,6 +29,7 @@ public class Footman : MonoBehaviour {
 	}
 
 	public void Move(Vector3 pos) {
+		GetComponent<AudioSource>().Play();
 
 		Vector3 direction = pos - transform.position;
 		targetPosition = pos;
@@ -78,5 +84,13 @@ public class Footman : MonoBehaviour {
 		}
 
 		animatorComponent.Play(animationName);
+	}
+
+	public void setActive() {
+        renderer.color = Color.blue;
+	}
+
+	public void setNotActive() {
+		renderer.color = Color.white;
 	}
 }
