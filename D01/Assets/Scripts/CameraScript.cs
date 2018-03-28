@@ -14,7 +14,7 @@ public class CameraScript : MonoBehaviour {
 		Array.Sort(players, CompareObNames);
 		if (SceneManager.GetActiveScene().name == "ex00")
 			players[currentPlayer].GetComponent<playerScript_ex00>().setMain(true);
-		if (SceneManager.GetActiveScene().name == "ex01")
+		else
 			players[currentPlayer].GetComponent<playerScript_ex01>().setMain(true);
 	}
 	
@@ -54,7 +54,7 @@ public class CameraScript : MonoBehaviour {
 			currentPlayer = player;
 			players[currentPlayer].GetComponent<playerScript_ex00>().setMain(true);
 		}
-		if (SceneManager.GetActiveScene().name == "ex01") {
+		else {
 			players[currentPlayer].GetComponent<playerScript_ex01>().setMain(false);
 			currentPlayer = player;
 			players[currentPlayer].GetComponent<playerScript_ex01>().setMain(true);

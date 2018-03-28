@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Trigger : MonoBehaviour {
 	public string whichCharacter;
@@ -9,12 +10,16 @@ public class Trigger : MonoBehaviour {
 	private static bool isThomas;
 	private static bool isClaire;
 
-	private static bool win;
-
 	void Update() {
-		if (isJohn && isClaire && isThomas && !win) {
+		if (isJohn && isClaire && isThomas) {
+			isJohn = false;
+			isThomas = false;
+			isClaire = false;
 			Debug.Log("You won !");
-			win = true;
+			if (SceneManager.GetActiveScene().buildIndex == 0)
+				SceneManager.LoadScene(1);
+			else
+				SceneManager.LoadScene(0);
 		}
 	}
 
