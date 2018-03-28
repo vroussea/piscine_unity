@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 955955406}
   - component: {fileID: 955955405}
   - component: {fileID: 955955407}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: John
   m_TagString: Character
   m_Icon: {fileID: 0}
@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 1374466599}
   - component: {fileID: 1374466598}
   - component: {fileID: 1374466600}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Claire
   m_TagString: Character
   m_Icon: {fileID: 0}
@@ -822,7 +822,7 @@ GameObject:
   - component: {fileID: 2072337622}
   - component: {fileID: 2072337621}
   - component: {fileID: 2072337623}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Thomas
   m_TagString: Character
   m_Icon: {fileID: 0}
