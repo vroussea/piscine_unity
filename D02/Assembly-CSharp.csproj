@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Building.cs" />
      <Compile Include="Assets\Scripts\Footman.cs" />
      <Compile Include="Assets\Scripts\Managers\FootmenManager.cs" />
  <Reference Include="UnityEngine.UIAutomation">

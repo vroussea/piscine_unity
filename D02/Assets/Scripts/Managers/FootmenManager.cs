@@ -14,7 +14,7 @@ public class FootmenManager : MonoBehaviour {
 		//	footmen.Add(footman.GetComponent<Footman>());
 		//}
 	}
-	
+
 	void Update () {
 		if (Input.GetMouseButtonDown(1)) {
 			foreach (Footman footman in footmen) {
@@ -49,12 +49,12 @@ public class FootmenManager : MonoBehaviour {
 				commandMove(pos);
 			}
 
-			
+
 		}
 	}
 
 	void commandMove(Vector3 pos) {
-			pos.z = 0;
+			pos.z = -2;
 			foreach(Footman footman in footmen) {
 				footman.Move(pos);
 			}

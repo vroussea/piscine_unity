@@ -13,12 +13,12 @@ public class Footman : MonoBehaviour {
 	private SpriteRenderer renderer;
 
 	void Start () {
-        renderer = GetComponent<SpriteRenderer>();
-		
+    renderer = GetComponent<SpriteRenderer>();
+
 		targetPosition = transform.position;
 		animatorComponent = GetComponent<Animator>();
 	}
-	
+
 	void Update () {
 
 		if (Vector3.Distance(transform.position, targetPosition) < 0.01f) {
