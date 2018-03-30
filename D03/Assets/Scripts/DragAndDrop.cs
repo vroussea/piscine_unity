@@ -10,6 +10,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
   public Vector3 startPosition;
   public Vector3 mousePosition;
   public GameObject turret;
+  public GameObject turretImagePrefab;
+  private GameObject turretImage;
 
   public bool canBePurchased;
   private bool inPurchase;
@@ -25,6 +27,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
   void Update() {
     if (gameManager.GetComponent<gameManager>().playerEnergy >= turretPrice) {
       canBePurchased = true;
+      GetComponent<Image>().color = startingColor;
     }
     else
     {
@@ -38,23 +41,30 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
   public void OnBeginDrag (PointerEventData eventData) {
     startPosition = transform.position;
     raycast = GetComponent<Raycast>();
+    if (canBePurchased) {
+      GetComponent<Image>().enabled = false;
+      turretImage = Instantiate(turretImagePrefab, transform.position, Quaternion.identity);
+    }
   }
 
     public void OnDrag(PointerEventData eventData)
   {
     if (canBePurchased) {
       mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-      mousePosition.z = -1;
-      transform.position = mousePosition;
+      mousePosition.z = -0.1f;
+      turretImage.transform.position = mousePosition;
       inPurchase = true;
+
     }
   }
 
     public void OnEndDrag(PointerEventData eventData)
   {
     if (canBePurchased && inPurchase) {
+      Vector3 screenPoint = Camera.main.WorldToViewportPoint(mousePosition);
+      bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
       Collider2D collider = raycast.CastRay(mousePosition, Vector2.zero);
-      if (collider != null) {
+      if (collider != null && onScreen) {
         GameObject tile = collider.gameObject;
         if (tile.tag == "empty") {
           gameManager.GetComponent<gameManager>().playerEnergy -= turretPrice;
@@ -62,7 +72,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
           Destroy(tile);
         }
       }
-      transform.position = startPosition;
+      Destroy(turretImage);
+      GetComponent<Image>().enabled = true;
       inPurchase = false;
     }
   }
