@@ -4,26 +4,34 @@ using UnityEngine.UI;
 
 public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
-	public static GameObject itemBeingDragged;
-  private Vector3 startPosition;
-  private Transform startParent;
+  private Raycast raycast;
 
-  public void OnBeginDrag(PointerEventData eventData)
-  {
-      itemBeingDragged = gameObject;
-      startPosition = transform.position;
-      startParent = transform.parent;
+  public Vector3 startPosition;
+  public Vector3 mousePosition;
+  public GameObject turret;
+
+  public void OnBeginDrag (PointerEventData eventData) {
+    startPosition = transform.position;
+    raycast = GetComponent<Raycast>();
   }
 
     public void OnDrag(PointerEventData eventData)
   {
-      transform.position = Input.mousePosition;
+    mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    mousePosition.z = -1;
+    transform.position = mousePosition;
   }
 
     public void OnEndDrag(PointerEventData eventData)
   {
-      itemBeingDragged = null;
-      if (transform.parent == startParent)
-          transform.position = startPosition;
+      Collider2D collider = raycast.CastRay(mousePosition, Vector2.zero);
+      if (collider != null) {
+        GameObject tile = collider.gameObject;
+        if (tile.tag == "empty") {
+          Instantiate(turret, tile.transform.position, Quaternion.identity);
+          Destroy(tile);
+        }
+      }
+      transform.position = startPosition;
   }
 }
