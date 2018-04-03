@@ -12,7 +12,10 @@ public class CharacterControl : MonoBehaviour {
 
 	public GameObject gameManager;
 
+	private Raycast3D raycast;
+
 	void Start () {
+		raycast = GetComponent<Raycast3D>();
 		controller = GetComponent<CharacterController>();
 		Cursor.visible = false;
 	}
@@ -54,7 +57,9 @@ public class CharacterControl : MonoBehaviour {
 
 	void OnTriggerStay(Collider collider) {
 		gameManager.GetComponent<GameManager>().discretion++;
-        if (collider.gameObject.tag == "light") {
+		string[] obstacle = {"lights"};
+		Vector3 lightPosition = collider.transform.position;
+        if (collider.gameObject.tag == "light" && raycast.CastRayIsObstacle(lightPosition, transform.position - lightPosition, 10, "player", obstacle)) {
 			gameManager.GetComponent<GameManager>().discretion += 0.5f;
 		}
     }
