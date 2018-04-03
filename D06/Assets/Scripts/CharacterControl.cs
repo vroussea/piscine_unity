@@ -7,6 +7,7 @@ public class CharacterControl : MonoBehaviour {
 	private CharacterController controller;
 
 	public float speed;
+	private float actualSpeed;
 
 	public float speedCam;
 
@@ -21,22 +22,32 @@ public class CharacterControl : MonoBehaviour {
 	}
 	
 	void Update () {
+		if (Input.GetKey(KeyCode.LeftShift)) {
+			actualSpeed = 2 * speed;
+			gameManager.GetComponent<GameManager>().discretion += 1f;
+			gameManager.GetComponent<GameManager>().run = true;
+		}
+		else {
+			actualSpeed = speed;
+			gameManager.GetComponent<GameManager>().run = false;
+			
+		}
 		move();
 		moveCamera();
 	}
 
 	void move() {
 		if (Input.GetKey(KeyCode.W)) {
-        	controller.SimpleMove(transform.TransformDirection(Vector3.forward) * speed);
+        	controller.SimpleMove(transform.TransformDirection(Vector3.forward) * actualSpeed);
 		}
 		if (Input.GetKey(KeyCode.S)) {
-        	controller.SimpleMove(-transform.TransformDirection(Vector3.forward) * speed);
+        	controller.SimpleMove(-transform.TransformDirection(Vector3.forward) * actualSpeed);
 		}
 		if (Input.GetKey(KeyCode.A)) {
-        	controller.SimpleMove(transform.TransformDirection(Vector3.left) * speed);
+        	controller.SimpleMove(transform.TransformDirection(Vector3.left) * actualSpeed);
 		}
 		if (Input.GetKey(KeyCode.D)) {
-        	controller.SimpleMove(transform.TransformDirection(Vector3.right) * speed);
+        	controller.SimpleMove(transform.TransformDirection(Vector3.right) * actualSpeed);
 		}
 	}
 
@@ -52,15 +63,17 @@ public class CharacterControl : MonoBehaviour {
     }
 
 	void OnTriggerExit(Collider collider) {
-		gameManager.GetComponent<GameManager>().seen = false;;
+		gameManager.GetComponent<GameManager>().seen = false;
     }
 
 	void OnTriggerStay(Collider collider) {
-		gameManager.GetComponent<GameManager>().discretion++;
-		string[] obstacle = {"lights"};
+		string[] obstacle = {"walls"};
 		Vector3 lightPosition = collider.transform.position;
-        if (collider.gameObject.tag == "light" && raycast.CastRayIsObstacle(lightPosition, transform.position - lightPosition, 10, "player", obstacle)) {
-			gameManager.GetComponent<GameManager>().discretion += 0.5f;
+        if (collider.gameObject.tag == "light" && raycast.CastRayIsObstacle(lightPosition, transform.position - lightPosition, 100f, "player", obstacle)) {
+			gameManager.GetComponent<GameManager>().discretion += 1f;
+		}
+		else {
+			gameManager.GetComponent<GameManager>().seen = false;
 		}
     }
 }

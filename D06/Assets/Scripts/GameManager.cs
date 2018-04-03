@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
 	public bool seen;
+	public bool run;
+	
 	public float discretion;
 	public GameObject player;
 	public Image fillBarGrey;
@@ -21,10 +23,13 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (run && seen) {
+			discretion += 0.5f;
+		}
 		if (discretion > 100)
 			discretion = 100;
 		timer += Time.deltaTime;
-		if (discretion > 0 && timer > 0.05 && !seen) {
+		if (discretion > 0 && timer > 0.05 && (!seen && !run)) {
 			discretion--;
 			timer = 0;
 		}

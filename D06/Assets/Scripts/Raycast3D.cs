@@ -18,19 +18,29 @@ public bool CastRay(Vector3 pos, Vector3 dir, float length) {
 		return null;
 	}
 
-	public Collider CastRayIsObstacle(Vector3 pos, Vector3 dir, float length, string search, string[] obstacles) {
+	public bool CastRayIsObstacle(Vector3 pos, Vector3 dir, float length, string search, string[] obstacles) {
+		float closestObstacle = 1000;
+		float playerDistance = -1;
 		RaycastHit[] hits = Physics.RaycastAll(pos, dir, length);
+		if (hits.Length <= 0)
+			return false;
 		foreach(RaycastHit hit in hits) {
 			Collider collider = hit.collider;
 			if (collider.gameObject.tag == search) {
-				return collider;
+				playerDistance = hit.distance;
 			}
-			foreach (string obstacle in obstacles) { 
-				if (collider.gameObject.tag == obstacle) {
-					return null;
+			else {
+				foreach (string obstacle in obstacles) {
+					if (collider.gameObject.tag == obstacle) {
+						closestObstacle = hit.distance;
+					}
 				}
 			}
+			if (playerDistance != -1 && playerDistance >= closestObstacle)
+				return false;
 		}
-		return null;
+		if (playerDistance != -1 && playerDistance >= closestObstacle)
+				return false;
+		return true;
 	}
 }
