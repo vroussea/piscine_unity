@@ -4188,10 +4188,9 @@ Transform:
   m_LocalRotation: {x: -0, y: 0.95335424, z: -0, w: 0.30185392}
   m_LocalPosition: {x: -8.983213, y: 0.47816515, z: -4.0938463}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 807296634}
+  m_Children: []
   m_Father: {fileID: 1642949438}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -20.386002, z: 0}
 --- !u!23 &411095044
 MeshRenderer:
@@ -4786,6 +4785,7 @@ MonoBehaviour:
   gameManager: {fileID: 1711776485}
   isHidden: 0
   key: 0
+  moving: 0
 --- !u!143 &636803650
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5192,7 +5192,7 @@ GameObject:
   - component: {fileID: 807296636}
   - component: {fileID: 807296635}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Paper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5204,12 +5204,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 807296633}
-  m_LocalRotation: {x: -0, y: -0.8456819, z: -0, w: 0.53368723}
-  m_LocalPosition: {x: 0.00000035390258, y: 0.502, z: -0.03099988}
-  m_LocalScale: {x: 0.05, y: 0.0001, z: 0.08}
+  m_LocalRotation: {x: -0, y: 0.2535206, z: -0, w: 0.96733}
+  m_LocalPosition: {x: -9.001055, y: 0.9801651, z: -4.0684958}
+  m_LocalScale: {x: 0.050000004, y: 0.0001, z: 0.08000001}
   m_Children: []
-  m_Father: {fileID: 411095043}
-  m_RootOrder: 0
+  m_Father: {fileID: 1642949438}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: -115.490005, z: 0}
 --- !u!23 &807296635
 MeshRenderer:
@@ -6927,6 +6927,7 @@ Transform:
   - {fileID: 285642101}
   - {fileID: 309526400}
   - {fileID: 671350390}
+  - {fileID: 807296634}
   - {fileID: 411095043}
   m_Father: {fileID: 1978271275}
   m_RootOrder: 4
