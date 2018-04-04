@@ -21,6 +21,8 @@ public class CharacterControl : MonoBehaviour {
 
 	public bool key;
 
+	public bool moving;
+
 	void Start () {
 		audioSource = GetComponent<AudioSource>();
 		raycast = GetComponent<Raycast3D>();
@@ -29,14 +31,24 @@ public class CharacterControl : MonoBehaviour {
 	}
 	
 	void Update () {
+		run();
+		moving = false;
+		move();
+		moveCamera();
+		useItem();
+	}
+
+	void run() {
 		if (Input.GetKey(KeyCode.LeftShift)) {
-			if (!audioSource.isPlaying) {
-				audioSource.loop = true;
-        		audioSource.Play();
+			if (moving) {
+				if (!audioSource.isPlaying) {
+					audioSource.loop = true;
+        			audioSource.Play();
+				}
+				actualSpeed = 2 * speed;
+				gameManager.GetComponent<GameManager>().discretion += 0.75f;
+				gameManager.GetComponent<GameManager>().run = true;
 			}
-			actualSpeed = 2 * speed;
-			gameManager.GetComponent<GameManager>().discretion += 0.75f;
-			gameManager.GetComponent<GameManager>().run = true;
 		}
 		else {
 			audioSource.Stop();
@@ -44,9 +56,6 @@ public class CharacterControl : MonoBehaviour {
 			gameManager.GetComponent<GameManager>().run = false;
 			
 		}
-		move();
-		moveCamera();
-		useItem();
 	}
 
 	void useItem() {
@@ -60,13 +69,15 @@ public class CharacterControl : MonoBehaviour {
 					key = true;
 					collider.gameObject.GetComponent<KeyCard>().pickKey();
 				}
-				if (collider.name == "prop_keycard_card") {
-					key = true;
-					collider.gameObject.GetComponent<KeyCard>().pickKey();
+				if (collider.name == "prop_fan_005") {
+					collider.transform.parent.transform.GetChild(1).gameObject.SetActive(true);
 				}
-				if (collider.name == "prop_keycard_card") {
-					key = true;
-					collider.gameObject.GetComponent<KeyCard>().pickKey();
+				if (collider.name == "prop_switchUnit" && key) {
+					key = false;
+					collider.gameObject.GetComponent<Switch>().openDoor();
+				}
+				if (collider.name == "Paper") {
+					gameManager.GetComponent<GameManager>().reloadScene();
 				}
 			}
 		}
@@ -75,15 +86,19 @@ public class CharacterControl : MonoBehaviour {
 	void move() {
 		if (Input.GetKey(KeyCode.W)) {
         	controller.SimpleMove(transform.TransformDirection(Vector3.forward) * actualSpeed);
+			moving = true;
 		}
 		if (Input.GetKey(KeyCode.S)) {
         	controller.SimpleMove(-transform.TransformDirection(Vector3.forward) * actualSpeed);
+			moving = true;
 		}
 		if (Input.GetKey(KeyCode.A)) {
         	controller.SimpleMove(transform.TransformDirection(Vector3.left) * actualSpeed);
+			moving = true;
 		}
 		if (Input.GetKey(KeyCode.D)) {
         	controller.SimpleMove(transform.TransformDirection(Vector3.right) * actualSpeed);
+			moving = true;
 		}
 	}
 

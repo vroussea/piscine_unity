@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (discretion >= 100) {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			reloadScene();
 		}
 		if (discretion > 75 && !isAlarm) {
 			audioSource.clip = alarmMusic;
@@ -58,5 +58,9 @@ public class GameManager : MonoBehaviour {
 		if (discretion >= redLimit) {
 			fillBarRed.fillAmount = (discretion - redLimit) / (100f - redLimit);
 		}
+	}
+
+	public void reloadScene() {
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }

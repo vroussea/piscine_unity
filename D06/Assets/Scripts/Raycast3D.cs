@@ -6,7 +6,7 @@ public class Raycast3D : MonoBehaviour {
 public RaycastHit CastRay(Vector3 pos, Vector3 dir, float length) {
 		RaycastHit hit;
 		Debug.DrawRay(pos, dir, Color.blue);
-		Physics.Raycast(pos, dir, out hit);
+		Physics.Raycast(pos, dir, out hit, length);
 		return hit;
 	}
 
