@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 64509714703267010}
   m_Layer: 0
   m_Name: prop_cctvCam_collision
-  m_TagString: light
+  m_TagString: camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,7 +176,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1288613331542412}
   m_LocalRotation: {x: 0.0061658956, y: -0.3837464, z: 0.0025623827, w: 0.92341447}
-  m_LocalPosition: {x: 4.941817, y: -3.4385924, z: 15.620775}
+  m_LocalPosition: {x: 5.2131367, y: -3.5194273, z: 15.39575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4741726683621646}
@@ -464,7 +464,7 @@ Light:
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
+  m_Cookie: {fileID: 2800000, guid: f9833ba650dc4e04b8c38db3ca92396d, type: 3}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0

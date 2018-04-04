@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Raycast3D : MonoBehaviour {
-public bool CastRay(Vector3 pos, Vector3 dir, float length) {
-		return Physics.Raycast(pos, dir, length);
+public RaycastHit CastRay(Vector3 pos, Vector3 dir, float length) {
+		RaycastHit hit;
+		Debug.DrawRay(pos, dir, Color.blue);
+		Physics.Raycast(pos, dir, out hit);
+		return hit;
 	}
 
 	public Collider CastRaySearch(Vector3 pos, Vector3 dir, string tag, float length) {
@@ -32,7 +35,7 @@ public bool CastRay(Vector3 pos, Vector3 dir, float length) {
 			else {
 				foreach (string obstacle in obstacles) {
 					if (collider.gameObject.tag == obstacle) {
-						closestObstacle = hit.distance;
+						closestObstacle = (closestObstacle < hit.distance ? closestObstacle : hit.distance);
 					}
 				}
 			}

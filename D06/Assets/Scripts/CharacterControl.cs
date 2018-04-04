@@ -15,7 +15,14 @@ public class CharacterControl : MonoBehaviour {
 
 	private Raycast3D raycast;
 
+	public bool isHidden;
+
+	private AudioSource audioSource;
+
+	public bool key;
+
 	void Start () {
+		audioSource = GetComponent<AudioSource>();
 		raycast = GetComponent<Raycast3D>();
 		controller = GetComponent<CharacterController>();
 		Cursor.visible = false;
@@ -23,17 +30,46 @@ public class CharacterControl : MonoBehaviour {
 	
 	void Update () {
 		if (Input.GetKey(KeyCode.LeftShift)) {
+			if (!audioSource.isPlaying) {
+				audioSource.loop = true;
+        		audioSource.Play();
+			}
 			actualSpeed = 2 * speed;
-			gameManager.GetComponent<GameManager>().discretion += 1f;
+			gameManager.GetComponent<GameManager>().discretion += 0.75f;
 			gameManager.GetComponent<GameManager>().run = true;
 		}
 		else {
+			audioSource.Stop();
 			actualSpeed = speed;
 			gameManager.GetComponent<GameManager>().run = false;
 			
 		}
 		move();
 		moveCamera();
+		useItem();
+	}
+
+	void useItem() {
+		if (Input.GetKeyDown("e")) {
+			Transform camera = transform.GetChild(0).transform;
+			RaycastHit hit = raycast.CastRay(camera.position, transform.TransformDirection(Vector3.forward), 1f);
+			if (hit.collider && hit.distance < 1.5f) {
+				Collider collider = hit.collider;
+				Debug.Log(collider.name);				
+				if (collider.name == "prop_keycard_card") {
+					key = true;
+					collider.gameObject.GetComponent<KeyCard>().pickKey();
+				}
+				if (collider.name == "prop_keycard_card") {
+					key = true;
+					collider.gameObject.GetComponent<KeyCard>().pickKey();
+				}
+				if (collider.name == "prop_keycard_card") {
+					key = true;
+					collider.gameObject.GetComponent<KeyCard>().pickKey();
+				}
+			}
+		}
 	}
 
 	void move() {
@@ -69,8 +105,13 @@ public class CharacterControl : MonoBehaviour {
 	void OnTriggerStay(Collider collider) {
 		string[] obstacle = {"walls"};
 		Vector3 lightPosition = collider.transform.position;
-        if (collider.gameObject.tag == "light" && raycast.CastRayIsObstacle(lightPosition, transform.position - lightPosition, 100f, "player", obstacle)) {
-			gameManager.GetComponent<GameManager>().discretion += 1f;
+        if (raycast.CastRayIsObstacle(lightPosition, transform.position - lightPosition, 100f, "player", obstacle)) {
+			if (collider.gameObject.tag == "light" ) {
+				gameManager.GetComponent<GameManager>().discretion += (isHidden ? 0.25f : 0.75f);
+			}
+			if (collider.gameObject.tag == "camera" ) {
+				gameManager.GetComponent<GameManager>().discretion += (isHidden ? 0.5f : 2.5f);
+			}
 		}
 		else {
 			gameManager.GetComponent<GameManager>().seen = false;
