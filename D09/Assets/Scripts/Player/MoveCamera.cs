@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoveCamera : MonoBehaviour {
 
@@ -18,37 +19,36 @@ public class MoveCamera : MonoBehaviour {
 
     float rotationY = 0F;
 
-    void Update ()
-    {
-        if (axes == RotationAxes.MouseXAndY)
-        {
-            float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
-
-            rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-            rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
-
-            transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
-        }
-        else if (axes == RotationAxes.MouseX)
-        {
-            transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityX, 0);
-        }
-        else
-        {
-            rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-            rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
-
-            transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
-        }
+    void Start() {
     }
 
-    void Start ()
+    void Update ()
     {
-    //if(!networkView.isMine)
-        //enabled = false;
+        if (Input.GetAxis("Control") != 0) {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else {
+            Cursor.lockState = CursorLockMode.Locked;
+            if (axes == RotationAxes.MouseXAndY)
+            {
+               float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
 
-        // Make the rigid body not change rotation
-        //if (rigidbody)
-            //rigidbody.freezeRotation = true;
+               rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+                rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
+
+                transform.localEulerAngles = new Vector3(-rotationY, rotationX, 0);
+            }
+            else if (axes == RotationAxes.MouseX)
+            {
+                transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityX, 0);
+           }
+            else
+            {
+                rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+                rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
+
+                transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
+            }
+        }
     }
 }
