@@ -19,7 +19,7 @@ public class Move : MonoBehaviour {
 		if (controller.isGrounded) {
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= speed;
+            moveDirection *= (speed + Input.GetAxis("Shift") * speed);
             if (Input.GetButton("Jump"))
                 moveDirection.y = jumpSpeed;
             
