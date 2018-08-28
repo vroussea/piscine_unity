@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Walls
+  - Weapon
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Player
+  - Ennemy
+  - PlayerShoot
+  - EnnemyShoot
+  - Weapons
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: passive
+    uniqueID: 3103064185
+    locked: 0
+  - name: active
+    uniqueID: 2094216129
+    locked: 0
+  - name: weaponAttachment
+    uniqueID: 2920263733
+    locked: 0
+  - name: ui
+    uniqueID: 2822856143
+    locked: 0
